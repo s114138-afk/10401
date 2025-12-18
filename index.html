@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<title>釣魚遊戲（單一 HTML）</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(#87ceeb, #1e3a8a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+#gameArea {
+  position: relative;
+  width: 480px;
+  height: 640px;
+  text-align: center;
+}
+#cat, .fish {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  cursor: pointer;
+  margin-top: 50px;
+}
+#resultText {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 36px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 4px #000;
+  display: none;
+}
+#retryBtn {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  font-size: 24px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: none;
+}
+#retryBtn:hover {
+  background-color: #ffaa00;
+}
+</style>
+</head>
+<body>
+<div id="gameArea">
+  <!-- 開始畫面：貓咪圖片 -->
+  <img id="cat" src="cat.png" alt="貓咪釣魚" />
+  <div id="resultText">你獲得</div>
+  <button id="retryBtn">再玩一次</button>
+</div>
+
+<!-- 預載魚圖片（隱藏） -->
+<img class="fishSource" src="fish2.png" style="display:none;" />
+<img class="fishSource" src="fish3.png" style="display:none;" />
+<img class="fishSource" src="fish4.png" style="display:none;" />
+<img class="fishSource" src="fish5.png" style="display:none;" />
+<img class="fishSource" src="fish6.png" style="display:none;" />
+<img class="fishSource" src="fish7.png" style="display:none;" />
+<img class="fishSource" src="fish8.png" style="display:none;" />
+<img class="fishSource" src="fish9.png" style="display:none;" />
+<img class="fishSource" src="fish10.png" style="display:none;" />
+<img class="fishSource" src="fish11.png" style="display:none;" />
+
+<script>
+const cat = document.getElementById('cat');
+const fishSources = Array.from(document.querySelectorAll('.fishSource'));
+const resultText = document.getElementById('resultText');
+const retryBtn = document.getElementById('retryBtn');
+
+const initialCatSrc = 'cat.png'; // 初始貓咪圖片
+
+cat.addEventListener('click', () => {
+  // 隨機挑選一張魚圖片
+  const randomFish = fishSources[Math.floor(Math.random() * fishSources.length)];
+
+  // 替換貓咪圖片為魚
+  cat.src = randomFish.src;
+
+  // 顯示文字和再玩一次按鈕
+  resultText.style.display = 'block';
+  retryBtn.style.display = 'block';
+
+  // 禁用貓咪再次點擊
+  cat.style.pointerEvents = 'none';
+});
+
+// 再玩一次按鈕點擊事件
+retryBtn.addEventListener('click', () => {
+  // 回到初始畫面
+  cat.src = initialCatSrc;
+  resultText.style.display = 'none';
+  retryBtn.style.display = 'none';
+  cat.style.pointerEvents = 'auto';
+});
+</script>
+</body>
+</html>
+
+
+
+
